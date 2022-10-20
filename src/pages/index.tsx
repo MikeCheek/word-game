@@ -3,6 +3,7 @@ import * as styles from "../styles/game.module.scss";
 import SEO from "../atoms/seo";
 import Loader from "../components/loader";
 import Layout from "../components/layout";
+import "../styles/globals.scss";
 
 const Game = () => {
   const [code, setCode] = useState<string>();
