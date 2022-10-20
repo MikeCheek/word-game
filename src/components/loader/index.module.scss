@@ -1,0 +1,31 @@
+.bigLoader {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+
+  p {
+    &::after {
+      content: '.';
+      margin-left: 0.2rem;
+      animation: loading 3s linear infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    content: '.';
+  }
+  40% {
+    content: '..';
+  }
+  80% {
+    content: '...';
+  }
+  100% {
+    content: '...';
+  }
+}

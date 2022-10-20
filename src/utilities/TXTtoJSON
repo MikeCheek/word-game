@@ -1,0 +1,66 @@
+#!/bin/bash
+if test $# -ne 1; then
+	echo "Usage: $0 fileIn"
+	exit 1
+fi
+
+echo "{" 
+
+str=''
+while read word
+do	
+		#check if word has àèìòù
+		if [[ $word =~ [àèìòù] ]]; then
+			word=${word//à/a}
+			word=${word//è/e}
+			word=${word//ì/i}
+			word=${word//ò/o}
+			word=${word//ù/u}
+		fi
+		#check if word has ÀÈÌÒÙ
+		if [[ $word =~ [ÀÈÌÒÙ] ]]; then
+			word=${word//À/A}
+			word=${word//È/E}
+			word=${word//Ì/I}
+			word=${word//Ò/O}
+			word=${word//Ù/U}
+		fi
+		#check if word has ÁÉÍÓÚ
+		if [[ $word =~ [ÁÉÍÓÚ] ]]; then
+			word=${word//Á/A}
+			word=${word//É/E}
+			word=${word//Í/I}
+			word=${word//Ó/O}
+			word=${word//Ú/U}
+		fi
+		#check if word has ÁÉÍÓÚ
+		if [[ $word =~ [áéíóú] ]]; then
+			word=${word//á/a}
+			word=${word//é/e}
+			word=${word//í/i}
+			word=${word//ó/o}
+			word=${word//ú/u}
+		fi
+		#check if word has ÁÉÍÓÚ
+		if [[ $word =~ [ÁÉÍÓÚ] ]]; then
+			word=${word//Á/A}
+			word=${word//É/E}
+			word=${word//Í/I}
+			word=${word//Ó/O}
+			word=${word//Ú/U}
+		fi
+		
+	#save word in an array and check if it is already in the array
+	if [[ ! " ${array[@]} " =~ " *${word::-1}* " ]]; then
+		array+=("*${word::-1}*")
+		str+='"'
+		str+="${word::-1}"
+		str+='"'
+		str+=': "1",'
+	fi
+done < $1
+
+echo "${str::-1}"
+echo "}"
+
+exit 0

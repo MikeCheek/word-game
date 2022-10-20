@@ -1,0 +1,147 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--very-transparent-white);
+  > * {
+    margin-top: 20px;
+  }
+}
+
+.language {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  :nth-child(1) {
+    margin-right: 10px;
+  }
+  :nth-child(2) {
+    margin-right: 10px;
+  }
+  button {
+    background-color: var(--transparent-orange);
+    opacity: 0.5;
+    padding: 10px 15px 10px;
+    border-radius: 5px;
+  }
+  .buttonOn {
+    background-color: var(--orange);
+    opacity: 1;
+  }
+}
+
+.max {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  @media screen and (min-width: '768px') {
+    height: 2rem;
+  }
+  p {
+    margin: auto 0 auto;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  :nth-child(1) {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+  :nth-child(3) {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  :nth-child(2) {
+    margin: 10px;
+    padding: 5px 10px 5px;
+    color: var(--transparent-orange);
+    font-weight: 900;
+  }
+  button {
+    color: var(--transparent-orange);
+    padding: 5px 10px 5px;
+    font-size: 1.2rem;
+    margin: 10px;
+    background: none;
+    border: 5px groove var(--transparent-orange);
+    //box-shadow: 0 0 10px 0 var(--transparent-orange);
+    &:hover {
+      border: 5px groove var(--orange);
+      color: var(--orange);
+    }
+  }
+}
+
+.code {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  @media screen and (min-width: '768px') {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.inputCode {
+  padding: 9px;
+  border-radius: 10px;
+  margin: 2px;
+  width: 200px;
+  height: 20px;
+  background-color: #ffffffa6;
+  font-size: 1.2rem;
+  text-align: center;
+  @media screen and (min-width: '768px') {
+    padding: 10px;
+    font-size: 1.5rem;
+  }
+
+  &:invalid {
+    border-color: red;
+    background-color: lightcoral;
+  }
+}
+
+.error {
+  color: lightcoral;
+  margin-top: -20px;
+}
+
+.checkBattery {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  div {
+    background-color: #ffffffa6;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--black);
+    cursor: pointer;
+  }
+}

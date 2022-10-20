@@ -1,0 +1,37 @@
+@import '../../styles/animations';
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+}
+
+.circle {
+  border-radius: 100%;
+  background-color: var(--white);
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  transform: scale(0);
+  @media screen and (min-width: '768px') {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+  }
+}
+
+.circle1 {
+  @extend .circle;
+  animation: pop 800ms infinite alternate linear;
+}
+
+.circle2 {
+  @extend .circle;
+  animation: pop 800ms 200ms infinite alternate linear;
+}
+
+.circle3 {
+  @extend .circle;
+  animation: pop 800ms 400ms infinite alternate linear;
+}

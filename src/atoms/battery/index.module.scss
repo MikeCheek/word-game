@@ -1,0 +1,51 @@
+.battery {
+  border-radius: 5px;
+  border: 1px solid var(--orange);
+  width: 70px;
+  position: relative;
+  height: 30px;
+  padding: 2px;
+  .level {
+    border-radius: 2.5px;
+    background-color: var(--orange);
+    height: 100%;
+  }
+  span {
+    mix-blend-mode: difference;
+    color: var(--orange);
+    position: absolute;
+    height: fit-content;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    svg {
+      mix-blend-mode: difference;
+      width: 18px;
+      height: 100%;
+    }
+  }
+
+  &::after {
+    content: '_';
+    min-height: 20px;
+    min-width: 5px;
+    max-height: 20px;
+    max-width: 5px;
+    color: transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 105%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid var(--orange);
+  }
+}
