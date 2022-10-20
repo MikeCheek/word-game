@@ -1,0 +1,19 @@
+npm ci
+npm run build -- --prefix-paths
+git init
+git config user.name MikeCheek
+git config user.email MikeCheek@users.noreply.github.com
+git add .
+git commit -m deployed via Gatsby Publish Action 🎩 for 008d1c1b94be338a349005d67e548efeae009b4b
+git push -f https://***@github.com/MikeCheek/portfolio.git master:gh-pages
+
+
+run: |
+          npm ci
+          npm run build -- --prefix-paths
+          git config --global user.name 'MikeCheek'
+          git config --global user.email 'MikeCheek@users.noreply.github.com'
+          git checkout "${GITHUB_REF:11}
+          git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git commit -m "Automated report" -- public
+          git push -f https://***@github.com/MikeCheek/portfolio.git master:gh-pages
