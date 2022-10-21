@@ -8,7 +8,6 @@ import "../styles/globals.scss";
 const Game = () => {
   const [code, setCode] = useState<string>();
   const Hero = lazy(() => import("../components/hero"));
-  const isSSR = typeof window === "undefined";
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -29,11 +28,9 @@ const Game = () => {
       />
       <Layout noGameLink={true}>
         <h1 className={styles.heading}>Word Game</h1>
-        {!isSSR && (
           <Suspense fallback={<Loader />}>
             <Hero code={code} />
           </Suspense>
-        )}
       </Layout>
     </>
   );
