@@ -30,10 +30,10 @@ const Index = ({
   );
 
   const metaDescription: string = site.siteMetadata.description || description;
-  const defaultTitle: string = site.siteMetadata.title || "Portfolio";
+  const defaultTitle: string = site.siteMetadata.title || "MP";
   const url: string =
     site.siteMetadata.siteUrl || "https://mikecheek.github.io/wordgame";
-  const image: string = url + "/logo.png";
+  const image = null; // url + "/logo.png";
   const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
 
   return (
@@ -81,10 +81,10 @@ const Index = ({
           property: `og:site_name`,
           content: title,
         },
-        {
-          property: `twitter:image`,
-          content: image,
-        },
+        // {
+        //   property: `twitter:image`,
+        //   content: image,
+        // },
         {
           name: `twitter:card`,
           content: `summary`,

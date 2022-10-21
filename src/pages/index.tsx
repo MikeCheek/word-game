@@ -11,7 +11,6 @@ const Game = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-
     params.forEach((value, key) => {
       if (key === "word") {
         setCode(value.toLowerCase());

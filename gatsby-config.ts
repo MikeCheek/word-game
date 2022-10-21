@@ -9,7 +9,7 @@ const config: GatsbyConfig = {
     siteUrl: url,
     description: description,
     author: "Michele Pulvirenti",
-    keywords: ["word", "game"],
+    keywords: ["word", "game", "guess"],
   },
   flags: {
     DEV_SSR: true,
