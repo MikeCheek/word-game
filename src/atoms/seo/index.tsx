@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 //import { useStaticQuery, graphql } from "gatsby"
 import { SEOProps /*QueryTypes*/ } from "./index.types";
 import { useStaticQuery, graphql } from "gatsby";
+import slug from "../../utilities/slug";
 
 const Index = ({
   description = "",
@@ -32,7 +33,7 @@ const Index = ({
   const metaDescription: string = site.siteMetadata.description || description;
   const defaultTitle: string = site.siteMetadata.title || "MP";
   const url: string =
-    site.siteMetadata.siteUrl || "https://mikecheek.github.io/wordgame";
+    site.siteMetadata.siteUrl || "https://mikecheek.github.io" + slug;
   const image = null; // url + "/logo.png";
   const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
 
@@ -50,7 +51,7 @@ const Index = ({
               href: canonical,
             }
           : {},
-        { rel: "icon", href: "/wordgame/favicon.ico" },
+        { rel: "icon", href: slug + "/favicon.ico" },
       ]}
       meta={[
         {

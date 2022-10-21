@@ -1,6 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
+import slug from "./src/utilities/slug";
 
-const url = "https://mikecheek.github.io/wordgame";
+const url = "https://mikecheek.github.io" + slug;
 const description = "A simple guess the word game";
 
 const config: GatsbyConfig = {
@@ -14,6 +15,7 @@ const config: GatsbyConfig = {
   flags: {
     DEV_SSR: true,
   },
+  pathPrefix: `/wordgame`,
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
