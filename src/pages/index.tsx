@@ -24,13 +24,13 @@ const Game = () => {
       <SEO
         title={"Word Game"}
         description={"Play this word game"}
-        pathname={"/game"}
+        pathname={"/"}
       />
       <Layout noGameLink={true}>
         <h1 className={styles.heading}>Word Game</h1>
-          <Suspense fallback={<Loader />}>
-            <Hero code={code} />
-          </Suspense>
+        <Suspense fallback={<Loader />}>
+          <Hero code={code} />
+        </Suspense>
       </Layout>
     </>
   );

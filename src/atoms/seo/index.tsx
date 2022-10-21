@@ -1,19 +1,19 @@
-import React from 'react'
-import {Helmet} from 'react-helmet'
+import React from "react";
+import { Helmet } from "react-helmet";
 //import { useStaticQuery, graphql } from "gatsby"
-import {SEOProps /*QueryTypes*/} from './index.types'
-import {useStaticQuery, graphql} from 'gatsby'
+import { SEOProps /*QueryTypes*/ } from "./index.types";
+import { useStaticQuery, graphql } from "gatsby";
 
 const Index = ({
-  description = '',
-  lang = 'en',
+  description = "",
+  lang = "en",
   meta = [],
   title,
   pathname,
   googleSiteVerification,
   bingSiteVerification,
 }: SEOProps): JSX.Element => {
-  const {site} = useStaticQuery(
+  const { site } = useStaticQuery(
     graphql`
       query {
         site {
@@ -27,14 +27,14 @@ const Index = ({
         }
       }
     `
-  )
+  );
 
-  const metaDescription: string = description || site.siteMetadata.description
-  //const defaultTitle = site.siteMetadata?.title
-  const defaultTitle: string = 'Portfolio'
-  const url: string = 'https://mikecheek.github.io/portfolio'
-  const image: string = url + '/logo.png'
-  const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null
+  const metaDescription: string = site.siteMetadata.description || description;
+  const defaultTitle: string = site.siteMetadata.title || "Portfolio";
+  const url: string =
+    site.siteMetadata.siteUrl || "https://mikecheek.github.io/wordgame";
+  const image: string = url + "/logo.png";
+  const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
 
   return (
     <Helmet
@@ -46,11 +46,11 @@ const Index = ({
       link={[
         canonical
           ? {
-              rel: 'canonical',
+              rel: "canonical",
               href: canonical,
             }
           : {},
-        {rel: 'icon', href: '/portfolio/favicon.ico'},
+        { rel: "icon", href: "/wordgame/favicon.ico" },
       ]}
       meta={[
         {
@@ -58,8 +58,8 @@ const Index = ({
           content: metaDescription,
         },
         {
-          name: 'keywords',
-          content: site.siteMetadata.keywords.join(','),
+          name: "keywords",
+          content: site.siteMetadata.keywords.join(","),
         },
         {
           property: `og:title`,
@@ -103,52 +103,44 @@ const Index = ({
         },
         {
           name: `google-site-verification`,
-          content: googleSiteVerification ?? '',
+          content: googleSiteVerification ?? "",
         },
         {
           name: `msvalidate.01`,
-          content: bingSiteVerification ?? '',
+          content: bingSiteVerification ?? "",
         },
       ]
         .concat(
           image
             ? [
                 {
-                  property: 'og:image',
+                  property: "og:image",
                   content: image,
                 },
                 {
-                  property: 'og:image:width',
-                  content: '200px',
+                  property: "og:image:width",
+                  content: "200px",
                 },
                 {
-                  property: 'og:image:height',
-                  content: '200px',
+                  property: "og:image:height",
+                  content: "200px",
                 },
                 {
-                  name: 'twitter:card',
-                  content: 'summary_large_image',
+                  name: "twitter:card",
+                  content: "summary_large_image",
                 },
               ]
             : [
                 {
-                  name: 'twitter:card',
-                  content: 'summary',
+                  name: "twitter:card",
+                  content: "summary",
                 },
               ]
         )
         .concat(meta)}
-    >
-      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" as="style" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" />
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
-      <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&display=swap" as="style" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&display=swap" />
-      <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&display=swap" rel="stylesheet" /> */}
-    </Helmet>
-  )
-}
+    ></Helmet>
+  );
+};
 
 /*
 // Queries
@@ -165,4 +157,4 @@ const SEOStaticQuery = graphql`
 `
 */
 
-export default Index
+export default Index;
