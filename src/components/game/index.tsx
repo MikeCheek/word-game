@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import * as styles from "./index.module.scss";
-import { WordGameProps } from "./index.types";
+import * as styles from './index.module.scss';
+import { WordGameProps } from './index.types';
 
-import containsChar from "../../utilities/containsChar";
-import sleep from "../../utilities/sleep";
-import { getDefinition } from "../../utilities/word";
-import { strToHash } from "../../utilities/hash";
+import containsChar from '../../utilities/containsChar';
+import sleep from '../../utilities/sleep';
+import { getDefinition } from '../../utilities/word';
+import { strToHash } from '../../utilities/hash';
 
-const alphabet: string[] = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-const splitChar = ";";
+const alphabet: string[] = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+const splitChar = ';';
 
 const Index = ({ word, language }: WordGameProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -17,8 +17,8 @@ const Index = ({ word, language }: WordGameProps): JSX.Element => {
   const [remChars, setRemChars] = useState<string[]>([]);
   const [victory, setVictory] = useState<boolean>(false);
 
-  const [inLetters, setInLetters] = useState<string>("");
-  const [okLetters, setOkLetters] = useState<string>("");
+  const [inLetters, setInLetters] = useState<string>('');
+  const [okLetters, setOkLetters] = useState<string>('');
   const [remainings, setRemainings] = useState<string[]>(alphabet);
 
   const [attempts, setAttempts] = useState<number>(0);
@@ -31,11 +31,9 @@ const Index = ({ word, language }: WordGameProps): JSX.Element => {
   const [hintIndex, setHintIndex] = useState<number>(0);
   const [disableHint, setDisableHint] = useState<boolean>(false);
 
-  const [code, setCode] = useState<string>("");
+  const [code, setCode] = useState<string>('');
 
-  const splittedDefinition = getDefinition(word)
-    .replace(new RegExp(word, "g"), "****")
-    .split(splitChar);
+  const splittedDefinition = getDefinition(word).replace(new RegExp(word, 'g'), '****').split(splitChar);
 
   const getNextHint = () => {
     if (disableHint) return;
@@ -69,11 +67,9 @@ Go somewhere else or try to guess the word `);
   }, [word]);
 
   const nextInput = (index: number): void => {
-    const nextElement = formRef.current!.elements[
-      index + 1
-    ] as HTMLInputElement;
+    const nextElement = formRef.current!.elements[index + 1] as HTMLInputElement;
     if (nextElement) {
-      if (nextElement.value == "Check") return;
+      if (nextElement.value == 'Check') return;
       if (nextElement.disabled) nextInput(index + 1);
       else {
         nextElement.focus();
@@ -83,9 +79,7 @@ Go somewhere else or try to guess the word `);
   };
 
   const previousInput = (index: number): void => {
-    const prevElement = formRef.current!.elements[
-      index - 1
-    ] as HTMLInputElement;
+    const prevElement = formRef.current!.elements[index - 1] as HTMLInputElement;
     if (prevElement)
       if (prevElement.disabled) previousInput(index - 1);
       else {
@@ -98,26 +92,17 @@ Go somewhere else or try to guess the word `);
     const form = formRef.current || event.target.form;
     const index = [...form].indexOf(event.target);
 
-    if (
-      event.key.toLowerCase() === "enter" ||
-      event.key.toLowerCase() === "arrowright"
-    ) {
+    if (event.key.toLowerCase() === 'enter' || event.key.toLowerCase() === 'arrowright') {
       //if form is full
-      if (
-        form.elements[index + 1].value == "Check" ||
-        form.elements[index + 1].disabled
-      ) {
+      if (form.elements[index + 1].value == 'Check' || form.elements[index + 1].disabled) {
         check(event);
       }
       nextInput(index);
       event.preventDefault();
-    } else if (event.key.toLowerCase() === "arrowleft") {
+    } else if (event.key.toLowerCase() === 'arrowleft') {
       previousInput(index);
       event.preventDefault();
-    } else if (
-      event.key.toLowerCase() === "backspace" &&
-      event.target.value === ""
-    ) {
+    } else if (event.key.toLowerCase() === 'backspace' && event.target.value === '') {
       previousInput(index);
     }
   };
@@ -126,12 +111,8 @@ Go somewhere else or try to guess the word `);
     const form = formRef.current || event.target.form;
     const index = [...form].indexOf(event.target);
 
-    if (
-      event.target.value == " " ||
-      event.target.value == "" ||
-      !event.target.value.match("^([a-z]|[A-Z])*$")
-    ) {
-      event.target.value = "";
+    if (event.target.value == ' ' || event.target.value == '' || !event.target.value.match('^([a-z]|[A-Z])*$')) {
+      event.target.value = '';
     } else {
       nextInput(index);
       event.preventDefault();
@@ -141,7 +122,7 @@ Go somewhere else or try to guess the word `);
   const check = (event: any) => {
     const form = formRef.current || event.target.form;
     const tmpArray: string[] = [];
-    let tmpString = "";
+    let tmpString = '';
 
     let tmpIn = inLetters;
     let tmpOk = okLetters;
@@ -160,23 +141,19 @@ Go somewhere else or try to guess the word `);
       });
       if (!containsChar(tmpIn, tmpArray[i])) tmpIn += tmpArray[i];
 
-      if (containsChar(remChars.toString(), tmpArray[i]) && tmpArray[i] != "") {
-        document.getElementById("input" + i)!.style.backgroundColor =
-          "var(--orange)";
+      if (containsChar(remChars.toString(), tmpArray[i]) && tmpArray[i] != '') {
+        document.getElementById('input' + i)!.style.backgroundColor = 'var(--orange)';
         if (!containsChar(tmpOk, tmpArray[i])) tmpOk += tmpArray[i];
       } else {
-        document.getElementById("input" + i)!.style.backgroundColor = "";
+        document.getElementById('input' + i)!.style.backgroundColor = '';
       }
 
       if (tmpArray[i].toUpperCase() === chars[i].toUpperCase()) {
-        document.getElementById("input" + i)!.style.backgroundColor =
-          "var(--pink)";
-        document
-          .getElementById("input" + i)!
-          .setAttribute("disabled", "disabled");
+        document.getElementById('input' + i)!.style.backgroundColor = 'var(--pink)';
+        document.getElementById('input' + i)!.setAttribute('disabled', 'disabled');
 
         let tmpRemChars = remChars;
-        tmpRemChars[i] = "_";
+        tmpRemChars[i] = '_';
         setRemChars(tmpRemChars);
       }
     }
@@ -184,19 +161,19 @@ Go somewhere else or try to guess the word `);
     if (word.toUpperCase() === tmpString.toUpperCase()) setVictory(true);
     else
       document
-        .getElementById("trebbling")!
+        .getElementById('trebbling')!
         .animate(
           [
-            { transform: "none" },
-            { transform: "translateX(10px) rotateZ(1deg)" },
-            { transform: "translateX(-10px) rotateZ(1deg)" },
-            { transform: "translateX(10px) rotateZ(-1deg)" },
-            { transform: "translateX(-10px) rotateZ(-1deg)" },
-            { transform: "none" },
+            { transform: 'none' },
+            { transform: 'translateX(10px) rotateZ(1deg)' },
+            { transform: 'translateX(-10px) rotateZ(1deg)' },
+            { transform: 'translateX(10px) rotateZ(-1deg)' },
+            { transform: 'translateX(-10px) rotateZ(-1deg)' },
+            { transform: 'none' },
           ],
           {
             duration: 300,
-            easing: "linear",
+            easing: 'linear',
           }
         );
 
@@ -207,34 +184,31 @@ Go somewhere else or try to guess the word `);
 
   const toggleDefinition = () => setDefinition(!definition);
 
-  const handleCopyClick = (
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    text: string
-  ) => {
+  const handleCopyClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>, text: string) => {
     const target = event.currentTarget;
     navigator.clipboard.writeText(text);
-    target.innerHTML = "Copied!";
-    sleep(3000).then(() => (target.innerHTML = "(Copy)"));
+    target.innerHTML = 'Copied!';
+    sleep(3000).then(() => (target.innerHTML = '(Copy)'));
   };
 
   return (
-    <div id={"form"} className={styles.form}>
-      <form ref={formRef} id={"form"}>
-        <div id={"trebbling"}>
+    <div id={'form'} className={styles.form}>
+      <form ref={formRef} id={'form'}>
+        <div id={'trebbling'}>
           {chars.map((_char, key) => {
             return (
               <input
-                type={"text"}
+                type={'text'}
                 key={key}
                 className={styles.input}
-                id={"input" + key}
-                name={"input" + key}
+                id={'input' + key}
+                name={'input' + key}
                 tabIndex={key + 1}
-                enterKeyHint={"next"}
+                enterKeyHint={'next'}
                 maxLength={1}
                 onKeyDown={handleEnter}
                 onChange={handleChange}
-                pattern={"^([a-z]|[A-Z])*$"}
+                pattern={'^([a-z]|[A-Z])*$'}
                 autoFocus={key === 0}
                 onClick={(e) => e.currentTarget.select()}
               />
@@ -244,23 +218,17 @@ Go somewhere else or try to guess the word `);
         {victory ? (
           <div className={styles.victory}>
             <h2>
-              YOU HAVE GUESSED THE WORD{" "}
-              <span style={{ color: "var(--pink)" }}>{word.toUpperCase()}</span>{" "}
-              IN {attempts} {attempts == 1 ? "ATTEMPT" : "ATTEMPTS"}!!
+              YOU HAVE GUESSED THE WORD <span style={{ color: 'var(--pink)' }}>{word.toUpperCase()}</span> IN {attempts}{' '}
+              {attempts == 1 ? 'ATTEMPT' : 'ATTEMPTS'}!!
             </h2>
-            {lan === "en" ? (
+            {lan === 'en' ? (
               <>
-                <button
-                  type={"button"}
-                  className={styles.ctaDefinition}
-                  onClick={toggleDefinition}
-                >
+                <button type={'button'} className={styles.ctaDefinition} onClick={toggleDefinition}>
                   {definition ? `HIDE` : `SHOW`} DEFINITION
                 </button>
                 {definition ? (
                   <p className={styles.box}>
-                    <span style={{ color: "var(--pink)" }}>{word}</span>:{" "}
-                    {getDefinition(word)}
+                    <span style={{ color: 'var(--pink)' }}>{word}</span>: {getDefinition(word)}
                   </p>
                 ) : null}
               </>
@@ -268,36 +236,27 @@ Go somewhere else or try to guess the word `);
           </div>
         ) : (
           <>
-            <button
-              className={styles.check}
-              type={"button"}
-              value={"Check"}
-              onClick={check}
-            >
+            <button className={styles.check} type={'button'} value={'Check'} onClick={check}>
               CHECK
             </button>
             <p>Attempts: {attempts}</p>
           </>
-        )}{" "}
+        )}{' '}
       </form>
       <p>
-        Code of the word: {code}{" "}
+        Code of the word: {code}{' '}
         <span className={styles.copy} onClick={(e) => handleCopyClick(e, code)}>
           (Copy)
         </span>
       </p>
       <span>
-        If you want to play again with this word save{" "}
-        <a
-          className="link"
-          href={`${location.href}?word=${code}`}
-          rel="noopener noreferrer"
-        >
+        If you want to play again with this word save{' '}
+        <a className="link" href={`${location.origin + location.pathname}?word=${code}`} rel="noopener noreferrer">
           this link
         </a>
         <span
           className={styles.copy}
-          onClick={(e) => handleCopyClick(e, `${location.href}?word=${code}`)}
+          onClick={(e) => handleCopyClick(e, `${location.origin + location.pathname}?word=${code}`)}
         >
           (Copy)
         </span>
@@ -313,20 +272,13 @@ Go somewhere else or try to guess the word `);
             </div>
           </div>
           <span>
-            {hintIndex < splittedDefinition.length && language === "en" && (
-              <button
-                type="button"
-                className={styles.buttonHint}
-                onClick={getNextHint}
-                disabled={disableHint}
-              >
-                {disableHint ? `WAIT 10 SECONDS FOR NEXT` : "SHOW"} HINT
+            {hintIndex < splittedDefinition.length && language === 'en' && (
+              <button type="button" className={styles.buttonHint} onClick={getNextHint} disabled={disableHint}>
+                {disableHint ? `WAIT 10 SECONDS FOR NEXT` : 'SHOW'} HINT
               </button>
             )}
             {hint && <p className={styles.box}>{hint}</p>}
-            {hint?.includes("****") && (
-              <p>The hidden word is replaced with ****</p>
-            )}
+            {hint?.includes('****') && <p>The hidden word is replaced with ****</p>}
           </span>
         </div>
         <div className={styles.lettersR}>
