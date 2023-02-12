@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 
-import * as styles from "./index.module.scss";
-import GameHeroProps from "./index.types";
+import * as styles from './index.module.scss';
+import GameHeroProps from './index.types';
 
-import Game from "../game";
-import Loading from "../../atoms/loading";
-import randomWord from "../../utilities/word";
-import { hashToStr } from "../../utilities/hash";
-import Rules from "../../atoms/rules";
-import Battery from "../../atoms/battery";
-import Settings from "../settings";
-import SettingsSVG from "../../assets/settings.svg";
+import Game from '../game';
+import Loading from '../../atoms/loading';
+import randomWord from '../../utilities/word';
+import { hashToStr } from '../../utilities/hash';
+import Rules from '../../atoms/rules';
+import Battery from '../../atoms/battery';
+import Settings from '../settings';
+import SettingsSVG from '../../assets/settings.svg';
 
 const Index = ({ code }: GameHeroProps): JSX.Element => {
   const [fetched, setFetched] = useState<boolean>(false);
-  const [word, setWord] = useState<string>("");
+  const [word, setWord] = useState<string>('');
   const [started, setStarted] = useState<boolean>(false);
   const [length, setLength] = useState<number>(7);
   const [time, setTime] = useState<number>(0);
@@ -22,12 +22,17 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
   const [showBattery, setShowBattery] = useState<boolean>(false);
   const [settings, setSettings] = useState<boolean>(false);
   const [key, setKey] = useState<number>(0);
+  const [difficulty, setDifficulty] = useState<number>(1);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [language, setLanguage] = useState<string>("en");
+  const [language, setLanguage] = useState<string>('en');
 
-  const regexp = "^(e|E|i|I)(-)([a-zA-Z]{2,})";
+  const regexp = '^(e|E|i|I)(-)([a-zA-Z]{2,})';
+
+  const changeDifficulty = () => {
+    setDifficulty((diff) => (diff + 1) % 2);
+  };
 
   const checkRegexp = (str: string) => {
     return new RegExp(regexp).test(str);
@@ -56,26 +61,21 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
   };
 
   const changeLanguage = () => {
-    if (language === "en") setLanguage("it");
-    else setLanguage("en");
+    if (language === 'en') setLanguage('it');
+    else setLanguage('en');
   };
 
   const useCode = (code: string) => {
     const str = hashToStr(code);
     setWord(str[0].toLowerCase());
-    setLanguage(str[1].toLowerCase() == "i" ? "it" : "en");
+    setLanguage(str[1].toLowerCase() == 'i' ? 'it' : 'en');
     setStarted(true);
     setFetched(true);
   };
 
   const handleStartClick = () => {
     const input = inputRef.current;
-    if (
-      input &&
-      input.value != "" &&
-      input.value.length != 0 &&
-      input.value != null
-    ) {
+    if (input && input.value != '' && input.value.length != 0 && input.value != null) {
       if (input && checkRegexp(input.value)) {
         useCode(input.value);
       }
@@ -128,6 +128,8 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
           checkRegexp={checkRegexp}
           regexp={regexp}
           length={length}
+          difficulty={difficulty}
+          changeDifficulty={changeDifficulty}
         />
       )}
 
@@ -145,7 +147,7 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
       )}
 
       {fetched ? (
-        <Game word={word} language={language} key={key} />
+        <Game word={word} language={language} key={key} difficulty={difficulty} />
       ) : started ? (
         <Loading />
       ) : null}

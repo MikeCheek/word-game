@@ -1,6 +1,6 @@
-import React from 'react'
-import * as styles from './index.module.scss'
-import GameSettingsProps from './index.types'
+import React from 'react';
+import * as styles from './index.module.scss';
+import GameSettingsProps from './index.types';
 
 const Index = ({
   increase,
@@ -16,6 +16,8 @@ const Index = ({
   regexp,
   checkRegexp,
   length,
+  difficulty,
+  changeDifficulty,
 }: GameSettingsProps) => {
   return (
     <div className={styles.settings}>
@@ -39,6 +41,15 @@ const Index = ({
           ITALIAN
         </button>
       </div>
+      <div className={styles.optionsWrap}>
+        <p>Game mode: </p>
+        <div style={difficulty == 1 ? { backgroundColor: 'var(--orange)' } : {}} onClick={changeDifficulty}>
+          NORMAL
+        </div>
+        <div style={difficulty == 0 ? { backgroundColor: 'var(--orange)' } : {}} onClick={changeDifficulty}>
+          EASY
+        </div>
+      </div>
 
       {started ? null : (
         <>
@@ -54,10 +65,10 @@ const Index = ({
             />
           </div>
           {error ? <p className={styles.error}>Invalid code</p> : null}
-          <div className={styles.checkBattery}>
+          <div className={styles.optionsWrap}>
             <p>Show battery status?</p>
             <div
-              style={showBattery ? {backgroundColor: 'var(--orange)'} : {}}
+              style={{ width: '20px', height: '20px', backgroundColor: showBattery ? 'var(--orange)' : 'none' }}
               onClick={() => setShowBattery(!showBattery)}
             >
               {showBattery ? <span>&#10003;</span> : null}
@@ -66,7 +77,7 @@ const Index = ({
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

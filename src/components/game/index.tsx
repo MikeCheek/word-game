@@ -5,13 +5,13 @@ import { WordGameProps } from './index.types';
 
 import containsChar from '../../utilities/containsChar';
 import sleep from '../../utilities/sleep';
-import { getDefinition } from '../../utilities/word';
+import { existsWord, getDefinition } from '../../utilities/word';
 import { strToHash } from '../../utilities/hash';
 
 const alphabet: string[] = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 const splitChar = ';';
 
-const Index = ({ word, language }: WordGameProps): JSX.Element => {
+const Index = ({ word, language, difficulty }: WordGameProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null);
   const [chars, setChars] = useState<string[]>([]);
   const [remChars, setRemChars] = useState<string[]>([]);
@@ -32,6 +32,7 @@ const Index = ({ word, language }: WordGameProps): JSX.Element => {
   const [disableHint, setDisableHint] = useState<boolean>(false);
 
   const [code, setCode] = useState<string>('');
+  const [error, setError] = useState<string>();
 
   const splittedDefinition = getDefinition(word).replace(new RegExp(word, 'g'), '****').split(splitChar);
 
@@ -110,6 +111,7 @@ Go somewhere else or try to guess the word `);
   const handleChange = (event: any) => {
     const form = formRef.current || event.target.form;
     const index = [...form].indexOf(event.target);
+    setError(undefined);
 
     if (event.target.value == ' ' || event.target.value == '' || !event.target.value.match('^([a-z]|[A-Z])*$')) {
       event.target.value = '';
@@ -128,12 +130,22 @@ Go somewhere else or try to guess the word `);
     let tmpOk = okLetters;
     let tmpRem = remainings;
 
-    setAttempts(attempts * 1 + 1);
-
     for (let i = 0; i < word.length; i++) {
       tmpArray.push(form.elements[i].value);
       tmpString += form.elements[i].value;
     }
+
+    if (tmpArray.length != tmpString.length) {
+      setError('FILL IN ALL THE SPACES');
+      return;
+    }
+
+    if (difficulty == 1 && !existsWord(tmpString, language)) {
+      setError("THE WORD YOU TYPED DOESN'T EXIST");
+      return;
+    }
+
+    setAttempts(attempts * 1 + 1);
 
     for (let i = 0; i < tmpArray.length; i++) {
       tmpRem = tmpRem.filter((value, _index, _arr) => {
@@ -215,6 +227,7 @@ Go somewhere else or try to guess the word `);
             );
           })}
         </div>
+        {error ? <p>{error}</p> : null}
         {victory ? (
           <div className={styles.victory}>
             <h2>
