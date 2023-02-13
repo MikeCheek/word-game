@@ -44,7 +44,7 @@ const Index = ({
         </span>
       </div>
       <div className={styles.language}>
-        <p>Game mode: </p>
+        <p>Game mode</p>
         <span>
           <button className={difficulty == 0 ? styles.buttonOn : ''} onClick={changeDifficulty}>
             <abbr title="In normal mode you can submit every combination of letters to find the hidden word">
