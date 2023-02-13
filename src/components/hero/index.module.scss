@@ -8,6 +8,17 @@
   margin: 20px;
 }
 
+.settingsWrapAbsolute {
+  @extend .settingsWrap;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @media screen and (min-width: '768px') {
+    top: 10px;
+    right: 10px;
+  }
+}
+
 .stats {
   display: flex;
   flex-direction: row;

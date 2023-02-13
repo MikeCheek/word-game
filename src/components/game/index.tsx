@@ -257,24 +257,27 @@ Go somewhere else or try to guess the word `);
           </>
         )}{' '}
       </form>
-      <p>
-        Code of the word: {code}{' '}
-        <span className={styles.copy} onClick={(e) => handleCopyClick(e, code)}>
-          (Copy)
+      <div>
+        <p>
+          Code of the word: {code}{' '}
+          <span className={styles.copy} onClick={(e) => handleCopyClick(e, code)}>
+            (Copy)
+          </span>
+        </p>
+        <span>
+          If you want to play again with this word save{' '}
+          <a className="link" href={`${location.origin + location.pathname}?word=${code}`} rel="noopener noreferrer">
+            this link
+          </a>
+          <span
+            className={styles.copy}
+            onClick={(e) => handleCopyClick(e, `${location.origin + location.pathname}?word=${code}`)}
+          >
+            (Copy)
+          </span>
         </span>
-      </p>
-      <span>
-        If you want to play again with this word save{' '}
-        <a className="link" href={`${location.origin + location.pathname}?word=${code}`} rel="noopener noreferrer">
-          this link
-        </a>
-        <span
-          className={styles.copy}
-          onClick={(e) => handleCopyClick(e, `${location.origin + location.pathname}?word=${code}`)}
-        >
-          (Copy)
-        </span>
-      </span>
+      </div>
+
       <div className={styles.lettersWrapper}>
         <div className={styles.lettersL}>
           <div className={styles.letters}>

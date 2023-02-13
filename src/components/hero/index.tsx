@@ -102,15 +102,17 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
         </div>
       ) : null}
 
-      {started ? null : <Rules />}
-      <div
-        className={styles.settingsWrap}
-        onClick={() => {
-          setSettings((value) => !value);
-        }}
-      >
+      {started ? null : (
+        <>
+          <Rules />{' '}
+          <div className={styles.settingsWrap} onClick={() => setSettings(true)}>
+            <SettingsSVG width={50} fill="var(--orange)" />
+            <p>Settings</p>
+          </div>
+        </>
+      )}
+      <div className={styles.settingsWrapAbsolute} onClick={() => setSettings(true)}>
         <SettingsSVG width={50} fill="var(--orange)" />
-        <p>Settings</p>
       </div>
       {settings && (
         <Settings
@@ -130,6 +132,7 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
           length={length}
           difficulty={difficulty}
           changeDifficulty={changeDifficulty}
+          close={() => setSettings(false)}
         />
       )}
 

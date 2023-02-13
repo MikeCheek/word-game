@@ -15,4 +15,5 @@ export default interface GameSettingsProps {
   length: number;
   difficulty: number;
   changeDifficulty: () => void;
+  close: () => void;
 }
