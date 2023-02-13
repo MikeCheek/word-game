@@ -7,15 +7,15 @@ const Index = () => {
     level: number;
     charging: boolean;
     chargingTime: number;
-    discargingTime: number;
-  }>({ level: -1, charging: false, chargingTime: -1, discargingTime: -1 });
+    dischargingTime: number;
+  }>({ level: -1, charging: false, chargingTime: -1, dischargingTime: -1 });
 
   const updateBattery = (battery: any) => {
     setBattery({
       level: battery.level,
       charging: battery.charging,
       chargingTime: battery.chargingTime,
-      discargingTime: battery.discargingTime,
+      dischargingTime: battery.dischargingTime,
     });
   };
 
@@ -56,8 +56,8 @@ const Index = () => {
         Number.isFinite(battery.chargingTime) ? (
           <span>{battery.chargingTime} min</span>
         ) : null
-      ) : Number.isFinite(battery.discargingTime) ? (
-        <span>{battery.discargingTime} min</span>
+      ) : Number.isFinite(battery.dischargingTime) ? (
+        <span>{battery.dischargingTime} min</span>
       ) : null}
     </>
   ) : (
