@@ -18,6 +18,7 @@ const randomWord = (length: number = 20, language: string = 'en'): string => {
 };
 
 export const getDefinition = (key: string): string => {
+  //@ts-ignore
   return dataEN[key];
 };
 
