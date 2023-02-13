@@ -34,21 +34,27 @@ const Index = ({
       </div>
       <div className={styles.language}>
         <p>Language </p>
-        <button onClick={changeLanguage} className={language.toUpperCase() == 'EN' ? styles.buttonOn : ''}>
-          ENGLISH
-        </button>
-        <button onClick={changeLanguage} className={language.toUpperCase() == 'IT' ? styles.buttonOn : ''}>
-          ITALIAN
-        </button>
+        <span>
+          <button onClick={changeLanguage} className={language.toUpperCase() == 'EN' ? styles.buttonOn : ''}>
+            ENGLISH
+          </button>
+          <button onClick={changeLanguage} className={language.toUpperCase() == 'IT' ? styles.buttonOn : ''}>
+            ITALIAN
+          </button>
+        </span>
       </div>
-      <div className={styles.optionsWrap}>
+      <div className={styles.language}>
         <p>Game mode: </p>
-        <div style={difficulty == 1 ? { backgroundColor: 'var(--orange)' } : {}} onClick={changeDifficulty}>
-          NORMAL
-        </div>
-        <div style={difficulty == 0 ? { backgroundColor: 'var(--orange)' } : {}} onClick={changeDifficulty}>
-          EASY
-        </div>
+        <span>
+          <button className={difficulty == 0 ? styles.buttonOn : ''} onClick={changeDifficulty}>
+            <abbr title="In normal mode you can submit every combination of letters to find the hidden word">
+              NORMAL
+            </abbr>
+          </button>
+          <button className={difficulty == 1 ? styles.buttonOn : ''} onClick={changeDifficulty}>
+            <abbr title="In hard mode you can only submit words that exists in the dictionary">HARD</abbr>
+          </button>
+        </span>
       </div>
 
       {started ? null : (
@@ -68,7 +74,7 @@ const Index = ({
           <div className={styles.optionsWrap}>
             <p>Show battery status?</p>
             <div
-              style={{ width: '20px', height: '20px', backgroundColor: showBattery ? 'var(--orange)' : 'none' }}
+              style={{ backgroundColor: showBattery ? 'var(--orange)' : 'none' }}
               onClick={() => setShowBattery(!showBattery)}
             >
               {showBattery ? <span>&#10003;</span> : null}

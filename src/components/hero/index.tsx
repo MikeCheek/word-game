@@ -22,7 +22,7 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
   const [showBattery, setShowBattery] = useState<boolean>(false);
   const [settings, setSettings] = useState<boolean>(false);
   const [key, setKey] = useState<number>(0);
-  const [difficulty, setDifficulty] = useState<number>(1);
+  const [difficulty, setDifficulty] = useState<number>(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
