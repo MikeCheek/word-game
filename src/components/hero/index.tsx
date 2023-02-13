@@ -112,7 +112,7 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
         </>
       )}
       <div className={styles.settingsWrapAbsolute} onClick={() => setSettings(true)}>
-        <SettingsSVG width={50} fill="var(--orange)" />
+        <SettingsSVG width={40} fill="var(--orange)" />
       </div>
       {settings && (
         <Settings
