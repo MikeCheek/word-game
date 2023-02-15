@@ -1,6 +1,6 @@
 import type { GatsbyConfig } from 'gatsby';
 
-const url = 'https://mikecheek.github.io/wordgame';
+const url = process.env.URL || 'https://mikecheek.github.io/wordgame';
 const description = 'A simple guess the word game';
 
 const config: GatsbyConfig = {
