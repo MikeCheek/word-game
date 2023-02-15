@@ -33,7 +33,8 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
   const changeDifficulty = () => {
     setDifficulty((diff) => {
       if (diff == 1) document.body.style.removeProperty('box-shadow');
-      else document.body.style.boxShadow = 'inset 0px 0px 10px 0px var(--orange)';
+      else
+        document.body.style.boxShadow = 'inset 20px 0 15px -15px var(--orange), inset -20px 0 15px -15px var(--orange)';
       return (diff + 1) % 2;
     });
   };
