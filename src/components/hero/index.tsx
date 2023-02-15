@@ -31,7 +31,11 @@ const Index = ({ code }: GameHeroProps): JSX.Element => {
   const regexp = '^(e|E|i|I)(-)([a-zA-Z]{2,})';
 
   const changeDifficulty = () => {
-    setDifficulty((diff) => (diff + 1) % 2);
+    setDifficulty((diff) => {
+      if (diff == 1) document.body.style.removeProperty('box-shadow');
+      else document.body.style.boxShadow = 'inset 0px 0px 10px 0px var(--orange)';
+      return (diff + 1) % 2;
+    });
   };
 
   const checkRegexp = (str: string) => {
