@@ -1,0 +1,22 @@
+.victory {
+  margin: 20px 0 20px;
+}
+
+.ctaDefinition {
+  padding: 10px;
+  margin: 5px;
+  background: none;
+  color: var(--transparent-orange);
+  border: none;
+  font-size: 1.1rem;
+  &:hover {
+    color: var(--orange);
+  }
+}
+
+.box {
+  background-color: var(--very-transparent-white);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 30px 20px;
+}

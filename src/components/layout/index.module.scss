@@ -7,3 +7,12 @@
   padding: 1%;
   overflow-x: hidden;
 }
+
+.heading {
+  background-image: linear-gradient(to bottom, var(--transparent-orange), var(--transparent-pink));
+  text-align: center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}

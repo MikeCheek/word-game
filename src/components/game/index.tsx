@@ -7,6 +7,8 @@ import containsChar from '../../utilities/containsChar';
 import sleep from '../../utilities/sleep';
 import { existsWord, getDefinition } from '../../utilities/word';
 import { strToHash } from '../../utilities/hash';
+import CodeLink from '../../atoms/codeLink';
+import Victory from '../../atoms/victory';
 
 const alphabet: string[] = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 const splitChar = ';';
@@ -23,8 +25,6 @@ const Index = ({ word, language, difficulty }: WordGameProps): JSX.Element => {
 
   const [attempts, setAttempts] = useState<number>(0);
 
-  const [definition, setDefinition] = useState<boolean>(false);
-
   const [lan, setLan] = useState<string>(language);
 
   const [hint, setHint] = useState<string>();
@@ -33,12 +33,12 @@ const Index = ({ word, language, difficulty }: WordGameProps): JSX.Element => {
 
   const [code, setCode] = useState<string>('');
   const [error, setError] = useState<string>();
+  const [def, setDef] = useState<string>(getDefinition(word));
 
-  const splittedDefinition =
-    language == 'en' ? getDefinition(word).replace(new RegExp(word, 'g'), '****').split(splitChar) : '';
+  const splittedDefinition = lan == 'en' && def ? def.replace(new RegExp(word, 'g'), '****').split(splitChar) : '';
 
   const getNextHint = () => {
-    if (disableHint) return;
+    if (disableHint && !def) return;
 
     setDisableHint(true);
 
@@ -57,7 +57,7 @@ const Index = ({ word, language, difficulty }: WordGameProps): JSX.Element => {
 
   useEffect(() => {
     setLan(language);
-    setCode(strToHash(word, language));
+    setCode(strToHash(word, lan));
     setChars(Array.from(word));
     setRemChars(Array.from(word));
     console.log(`
@@ -195,15 +195,6 @@ Go somewhere else or try to guess the word `);
     setRemainings(tmpRem);
   };
 
-  const toggleDefinition = () => setDefinition(!definition);
-
-  const handleCopyClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>, text: string) => {
-    const target = event.currentTarget;
-    navigator.clipboard.writeText(text);
-    target.innerHTML = 'Copied!';
-    sleep(3000).then(() => (target.innerHTML = '(Copy)'));
-  };
-
   return (
     <div id={'form'} className={styles.form}>
       <form ref={formRef} id={'form'}>
@@ -230,24 +221,7 @@ Go somewhere else or try to guess the word `);
         </div>
         {error ? <p>{error}</p> : null}
         {victory ? (
-          <div className={styles.victory}>
-            <h2>
-              YOU HAVE GUESSED THE WORD <span style={{ color: 'var(--pink)' }}>{word.toUpperCase()}</span> IN {attempts}{' '}
-              {attempts == 1 ? 'ATTEMPT' : 'ATTEMPTS'}!!
-            </h2>
-            {lan === 'en' ? (
-              <>
-                <button type={'button'} className={styles.ctaDefinition} onClick={toggleDefinition}>
-                  {definition ? `HIDE` : `SHOW`} DEFINITION
-                </button>
-                {definition ? (
-                  <p className={styles.box}>
-                    <span style={{ color: 'var(--pink)' }}>{word}</span>: {getDefinition(word)}
-                  </p>
-                ) : null}
-              </>
-            ) : null}
-          </div>
+          <Victory word={word} attempts={attempts} lan={lan} def={def} />
         ) : (
           <>
             <button className={styles.check} type={'button'} value={'Check'} onClick={check}>
@@ -255,28 +229,10 @@ Go somewhere else or try to guess the word `);
             </button>
             <p>Attempts: {attempts}</p>
           </>
-        )}{' '}
+        )}
       </form>
-      <div>
-        <p>
-          Code of the word: {code}{' '}
-          <span className={styles.copy} onClick={(e) => handleCopyClick(e, code)}>
-            (Copy)
-          </span>
-        </p>
-        <span>
-          If you want to play again with this word save{' '}
-          <a className="link" href={`${location.origin + location.pathname}?word=${code}`} rel="noopener noreferrer">
-            this link
-          </a>
-          <span
-            className={styles.copy}
-            onClick={(e) => handleCopyClick(e, `${location.origin + location.pathname}?word=${code}`)}
-          >
-            (Copy)
-          </span>
-        </span>
-      </div>
+
+      <CodeLink code={code} />
 
       <div className={styles.lettersWrapper}>
         <div className={styles.lettersL}>
@@ -288,9 +244,9 @@ Go somewhere else or try to guess the word `);
               })}
             </div>
           </div>
-          {language == 'en' ? (
+          {lan == 'en' ? (
             <span>
-              {hintIndex < splittedDefinition.length && language === 'en' && (
+              {hintIndex < splittedDefinition.length && lan === 'en' && (
                 <button type="button" className={styles.buttonHint} onClick={getNextHint} disabled={disableHint}>
                   {disableHint ? `WAIT 10 SECONDS FOR NEXT` : 'SHOW'} HINT
                 </button>

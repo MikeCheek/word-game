@@ -1,13 +1,12 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 //import { useStaticQuery, graphql } from "gatsby"
-import { SEOProps /*QueryTypes*/ } from "./index.types";
-import { useStaticQuery, graphql } from "gatsby";
-import slug from "../../utilities/slug";
+import { SEOProps /*QueryTypes*/ } from './index.types';
+import { useStaticQuery, graphql } from 'gatsby';
 
 const Index = ({
-  description = "",
-  lang = "en",
+  description = '',
+  lang = 'en',
   meta = [],
   title,
   pathname,
@@ -31,9 +30,8 @@ const Index = ({
   );
 
   const metaDescription: string = site.siteMetadata.description || description;
-  const defaultTitle: string = site.siteMetadata.title || "MP";
-  const url: string =
-    site.siteMetadata.siteUrl || "https://mikecheek.github.io" + slug;
+  const defaultTitle: string = site.siteMetadata.title || 'MP';
+  const url: string = site.siteMetadata.siteUrl || location.origin + location.pathname;
   const image = null; // url + "/logo.png";
   const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
 
@@ -47,11 +45,11 @@ const Index = ({
       link={[
         canonical
           ? {
-              rel: "canonical",
+              rel: 'canonical',
               href: canonical,
             }
           : {},
-        { rel: "icon", href: slug + "/favicon.ico" },
+        { rel: 'icon', href: '/favicon.ico' },
       ]}
       meta={[
         {
@@ -59,8 +57,8 @@ const Index = ({
           content: metaDescription,
         },
         {
-          name: "keywords",
-          content: site.siteMetadata.keywords.join(","),
+          name: 'keywords',
+          content: site.siteMetadata.keywords.join(','),
         },
         {
           property: `og:title`,
@@ -104,37 +102,37 @@ const Index = ({
         },
         {
           name: `google-site-verification`,
-          content: googleSiteVerification ?? "",
+          content: googleSiteVerification ?? '',
         },
         {
           name: `msvalidate.01`,
-          content: bingSiteVerification ?? "",
+          content: bingSiteVerification ?? '',
         },
       ]
         .concat(
           image
             ? [
                 {
-                  property: "og:image",
+                  property: 'og:image',
                   content: image,
                 },
                 {
-                  property: "og:image:width",
-                  content: "200px",
+                  property: 'og:image:width',
+                  content: '200px',
                 },
                 {
-                  property: "og:image:height",
-                  content: "200px",
+                  property: 'og:image:height',
+                  content: '200px',
                 },
                 {
-                  name: "twitter:card",
-                  content: "summary_large_image",
+                  name: 'twitter:card',
+                  content: 'summary_large_image',
                 },
               ]
             : [
                 {
-                  name: "twitter:card",
-                  content: "summary",
+                  name: 'twitter:card',
+                  content: 'summary',
                 },
               ]
         )

@@ -119,22 +119,6 @@
   }
 }
 
-.victory {
-  margin: 20px 0 20px;
-}
-
-.ctaDefinition {
-  padding: 10px;
-  margin: 5px;
-  background: none;
-  color: var(--transparent-orange);
-  border: none;
-  font-size: 1.1rem;
-  &:hover {
-    color: var(--orange);
-  }
-}
-
 .buttonHint {
   padding: 10px;
   margin: 5px;
@@ -143,15 +127,6 @@
   border: none;
   &:hover {
     border: none;
-    color: var(--orange);
-  }
-}
-
-.copy {
-  color: var(--transparent-orange);
-  cursor: pointer;
-  margin-left: 10px;
-  &:hover {
     color: var(--orange);
   }
 }

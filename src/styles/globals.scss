@@ -3,21 +3,12 @@ html {
   background-color: var(--black);
   color: var(--white);
   font-family: 'Rubik', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 1px;
   line-height: 1.5rem;
   scroll-behavior: smooth;
-  /*
-  * {
-      transition: color 500ms ease-out, background-color 500ms ease-out;
-  }
-  */
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  h4 {
-    font-size: 1.2rem;
+  @media screen and (min-width: '768px') {
+    font-size: 16px;
   }
 }
 
@@ -26,25 +17,6 @@ body {
   margin: 0;
   overflow-x: hidden;
   min-height: 100vh;
-  // ul {
-  //   margin: 0;
-  //   padding: 0;
-  // }
-  // @media screen and (min-width: '768px') {
-  //   ul {
-  //     margin: initial;
-  //     padding: initial;
-  //   }
-  // }
-  // li {
-  //   list-style-type: '💻';
-  //   margin-left: 2rem;
-  //   padding-inline-start: 1ch;
-  //   width: fit-content;
-  //   &::marker {
-  //     margin-left: 10%;
-  //   }
-  // }
   .link {
     background: linear-gradient(to right, var(--transparent-white), var(--transparent-white)),
       linear-gradient(to right, var(--orange), var(--pink));

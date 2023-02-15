@@ -20,10 +20,11 @@ const Index = () => {
   };
 
   const getBattery = () => {
+    const nav = navigator || window.navigator;
     //@ts-ignore
-    if (window.navigator && window.navigator.getBattery)
+    if (nav && nav.getBattery)
       //@ts-ignore
-      window.navigator.getBattery().then((battery) => {
+      nav.getBattery().then((battery) => {
         updateBattery(battery);
         battery.addEventListener('levelchange', () => {
           updateBattery(battery);
