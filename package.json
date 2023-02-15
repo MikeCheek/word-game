@@ -4,6 +4,7 @@
   "private": true,
   "description": "word-game",
   "author": "MikeCheek",
+  "homepage": ".",
   "keywords": [
     "word",
     "game"
